@@ -1,0 +1,53 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Assets/singleKey.png" type="Texture" id=1]
+[ext_resource path="res://Assets/singleKeyPressed.png" type="Texture" id=2]
+[ext_resource path="res://LetterButton.gd" type="Script" id=3]
+[ext_resource path="res://Assets/HelveticaNeueBold.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Assets/1941654-emoji/png/001-amazed.png" type="Texture" id=5]
+[ext_resource path="res://Assets/1941654-emoji/png/002-angry.png" type="Texture" id=6]
+[ext_resource path="res://Assets/1941654-emoji/png/003-dizzy.png" type="Texture" id=7]
+[ext_resource path="res://Assets/1941654-emoji/png/004-unhappy.png" type="Texture" id=8]
+[ext_resource path="res://Assets/1941654-emoji/png/005-cheeky.png" type="Texture" id=9]
+[ext_resource path="res://Assets/1941654-emoji/png/006-serious.png" type="Texture" id=10]
+[ext_resource path="res://Assets/1941654-emoji/png/007-cool.png" type="Texture" id=11]
+[ext_resource path="res://Assets/1941654-emoji/png/009-crying.png" type="Texture" id=12]
+[ext_resource path="res://Assets/1941654-emoji/png/008-stupid.png" type="Texture" id=13]
+
+[sub_resource type="DynamicFont" id=1]
+size = 150
+font_data = ExtResource( 4 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "default",
+"speed": 0.0
+} ]
+
+[node name="LetterButtons" type="TextureButton"]
+margin_right = 200.0
+margin_bottom = 300.0
+texture_normal = ExtResource( 1 )
+texture_pressed = ExtResource( 2 )
+expand = true
+script = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="."]
+margin_right = 89.0
+margin_bottom = 180.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "h"
+align = 1
+valign = 1
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 12.8156, 22.2246 )
+scale = Vector2( 0.100549, 0.100549 )
+frames = SubResource( 2 )
+centered = false
+
+[node name="Sprite" type="Sprite" parent="."]
+[connection signal="pressed" from="." to="." method="_on_LetterButtons_pressed"]

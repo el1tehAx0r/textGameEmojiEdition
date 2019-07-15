@@ -1,0 +1,96 @@
+
+func dropLetters(level,word,positionsUsed):
+	var droppedLetters
+	var howmanyPositionsLeft=word.size()-positionsUsed.size()
+	var wantedNumberofPositions
+	var maxPositions
+	if level<5:
+		maxPositions=1
+	if level>=5 and level<10:
+		maxPositions=2
+	wantedNumberofPositions=(randi()%maxPositions)+1
+	while wantedNumberofPositions>howmanyPositionsLeft:
+			wantedNumberofPositions=(randi()%maxPositions)+1
+	droppedLetters=select_letters(wantedNumberofPositions,word,positionsUsed)
+	return droppedLetters
+
+
+
+
+
+
+
+
+func word_select(wordArray):
+	var selectedWord=stringtoArray(wordArray[0])
+	return selectedWord
+
+
+
+
+
+func values_to_labels(var letters, var array):
+	for i in range(letters.size()):
+		buttonArray[i].get_node("Label").text=letters[i]
+
+
+
+func copy_labels(var array):
+	var tempArray=[]
+	for i in array:
+		tempArray.push_front(i.get_node("Label").text)
+	return tempArray
+
+
+func spawning():
+	if usedPositions.size()==currentWord.size():
+		words.remove(0)
+		usedPositions.clear()
+		if words.size()!=0:
+			currentWord=stringtoArray(words[0])
+	if words.size()!=0:
+		var randomPosition=randi()%currentWord.size()
+		while usedPositions.has(randomPosition)==true:
+			randomPosition= randi()%currentWord.size()
+		usedPositions.append(randomPosition)
+		#print(randomPosition,"yay")
+		$TextPath/TextSpawnLocation.set_offset(dropPositions[randomPosition])
+		#$TextPath/TextSpawnLocation.set_offset(dropPositions[0])
+		var text=PlayerTexts.instance()
+		print(text,"texty")
+		add_child(text)
+
+		# Set the mob's direction perpendicular to the path direction.
+	    #var direction = $MobPath/MobSpawnLocation.rotation + PI / 2
+	    # Set the mob's position to a random location.
+		var curLetter=currentWord[currentWord.size()-1-randomPosition]
+		text.get_node("Label").text=curLetter
+		text.position = $TextPath/TextSpawnLocation.position
+		var speeds=[Vector2(0, 350),Vector2(0,400),Vector2(0,385),Vector2(0,450)]
+		text.linear_velocity = speeds[randi()%speeds.size()]
+		currentBodies.append(text)
+		pushtoTempButtonArray(curLetter,randomPosition)
+				#buttonArray[i].get_node("Label").text=currentWord[currentWord.size()-1-randomPosition]
+		$HUD.connect("start_game", text, "_on_start_game")
+	else:
+		pass
+
+func pushtoTempButtonArray(var curLetter, var randomPosition):
+	print(curLetter)
+	tempButtonArray.push_front(copy_labels(buttonArray.duplicate()))
+	print("temwljelwrj",tempButtonArray.bawordManager()ck())
+	var letterOnButtonPosition=randi()%buttonArray.size()
+	print(letterOnButtonPosition,"lel")
+	var randomLetter=letters.duplicate()
+	print(randomLetter,"zz")
+	for i in range(buttonArray.size()):
+		if i!=letterOnButtonPosition:
+			randomLetter.remove(randomLetter.find(currentWord[currentWord.size()-1-randomPosition]))
+			var randletterremoveposition=randi()%randomLetter.size()
+			print(tempButtonArray.back(),"baa")
+			tempButtonArray.front()[i]=randomLetter[randletterremoveposition]
+			randomLetter.remove(randletterremoveposition)
+			print(randomLetter,"Slkdjl")
+		else:
+			tempButtonArray.front()[i]=curLetter
+	print(tempButtonArray.front(),"fro")

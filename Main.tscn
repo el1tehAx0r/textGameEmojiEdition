@@ -1,0 +1,61 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Main.gd" type="Script" id=1]
+[ext_resource path="res://PlayerTexts.tscn" type="PackedScene" id=2]
+[ext_resource path="res://LetterButtons.tscn" type="PackedScene" id=3]
+[ext_resource path="res://HUD.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Detector.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Back.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Assets/GONG.wav" type="AudioStream" id=7]
+[ext_resource path="res://Assets/munchausen.wav" type="AudioStream" id=8]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 30, 0, 0, 0, 0, 0, 450, 0 )
+}
+
+[node name="Main" type="Node"]
+script = ExtResource( 1 )
+PlayerTexts = ExtResource( 2 )
+LetterButtons = ExtResource( 3 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -1.50732
+margin_right = 478.493
+margin_bottom = 720.0
+
+[node name="HUD" parent="." instance=ExtResource( 4 )]
+
+[node name="Detector" parent="." instance=ExtResource( 5 )]
+position = Vector2( 218.562, 443.585 )
+
+[node name="StartPosition" type="Position2D" parent="."]
+position = Vector2( 203.784, 511.355 )
+
+[node name="StartTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="TextTimer" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="Back" parent="." instance=ExtResource( 6 )]
+position = Vector2( 236.237, 638.131 )
+
+[node name="TextPath" type="Path2D" parent="."]
+curve = SubResource( 1 )
+
+[node name="TextSpawnLocation" type="PathFollow2D" parent="TextPath"]
+position = Vector2( 30, 0 )
+
+[node name="Gong" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -18.675
+
+[node name="Bloop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+[connection signal="start_game" from="HUD" to="." method="new_game"]
+[connection signal="exit" from="Detector" to="." method="_on_Detector_exit"]
+[connection signal="hit" from="Detector" to="." method="update_score"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
+[connection signal="timeout" from="TextTimer" to="." method="_on_TextTimer_timeout"]
+[connection signal="entered" from="Back" to="." method="_on_Back_entered"]
