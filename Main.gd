@@ -6,8 +6,7 @@ var screenSize
 var score
 var dropPositions=[]
 var buttonArray=[]
-var letters=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y"]
-
+var letters=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
 var words=[]
 var wordQueue=[]
 var buttonLayoutArrayofArray=[]
@@ -25,7 +24,7 @@ var gameStart=false
 func _ready():
 	randomize()
 	setupPositioning()
-	values_to_labels(["P","U","S","S","A","W"])
+	values_to_labels(["p","u","s","s","a","w"])
 	set_process_input(true)
 
 func _process(delta):
@@ -86,6 +85,13 @@ func spawn(position,letter,score):
 	#$TextPath/TextSpawnLocation.set_offset(dropPositions[0])
 	var text=PlayerTexts.instance()
 	add_child(text)
+	if letter==letter.to_upper():
+		text.get_node("AnimatedSprite2").set_animation(letter)
+		text.get_node("AnimatedSprite2").set_visible(true)
+		text.get_node("Label").set_visible(false)
+	else:
+		text.get_node("AnimatedSprite2").set_visible(false)
+		text.get_node("Label").set_visible(true)
 	text.get_node("Label").text=letter
 	text.position = $TextPath/TextSpawnLocation.position
 	var speeds=[Vector2(0, 350),Vector2(0,100),Vector2(0,385),Vector2(0,450)]
@@ -232,6 +238,14 @@ func wordManager():
 func values_to_labels(var letters):
 	for i in range(letters.size()):
 		buttonArray[i].get_node("Label").text=letters[i]
+		if letters[i]==letters[i].to_upper():
+			buttonArray[i].get_node("AnimatedSprite2").set_animation(letters[i])
+			buttonArray[i].get_node("AnimatedSprite2").set_visible(true)
+			buttonArray[i].get_node("Label").set_visible(false)
+		else:
+			buttonArray[i].get_node("AnimatedSprite2").set_visible(false)
+			buttonArray[i].get_node("Label").set_visible(true)
+			
 func wordSelectQueue(howMany,wordList):
 	var selectedWords=[]
 	for i in range(howMany):
@@ -271,7 +285,7 @@ func createSingleLayout(maxPositions,word, wordPositions):
 
 		
 func buttonChoiceCreator(selectedLetters):
-	var letterChoices=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+	var letterChoices=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
 	var buttonTemplateArray=[]
 	for i in selectedLetters:
 		buttonTemplateArray.append(i)
@@ -327,7 +341,7 @@ func resetVariables():
 	holdingdoubles.clear()
 	currentWord.clear()
 	score=0
-	words=["hello","dan","y","b","a","u","o","e","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+	words=["ABC","B","y","b","a","u","o","e","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
 	
 
 
