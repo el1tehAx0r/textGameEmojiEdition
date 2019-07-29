@@ -28,7 +28,7 @@ margin_bottom = 720.0
 [node name="HUD" parent="." instance=ExtResource( 4 )]
 
 [node name="Detector" parent="." instance=ExtResource( 5 )]
-position = Vector2( 218.562, 443.585 )
+position = Vector2( 219.922, 444.945 )
 
 [node name="StartPosition" type="Position2D" parent="."]
 position = Vector2( 203.784, 511.355 )

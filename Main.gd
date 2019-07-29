@@ -255,7 +255,7 @@ func wordSelectQueue(howMany,wordList):
 	
 func createPercentageArray(whatIsScore):
 	if whatIsScore<5:
-		return [90,100]
+		return [10,100]
 	elif whatIsScore<10:
 		return[50,100]
 	else:
@@ -287,13 +287,35 @@ func createSingleLayout(maxPositions,word, wordPositions):
 func buttonChoiceCreator(selectedLetters):
 	var letterChoices=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
 	var buttonTemplateArray=[]
+	var upper=false
+	var lower=false
 	for i in selectedLetters:
+		if i==i.to_upper():
+			upper=true
+		if i==i.to_lower():
+			lower=true
+		print(i,"itoll")
 		buttonTemplateArray.append(i)
 		letterChoices.remove(letterChoices.find(i))
-	for i in range(buttonArray.size()-selectedLetters.size()):
-		var randNum=randi()%letterChoices.size()
-		buttonTemplateArray.append(letterChoices[randNum])
-		letterChoices.remove(randNum)
+	if upper and lower:
+		for i in range(buttonArray.size()-selectedLetters.size()):
+			var randNum=randi()%letterChoices.size()
+			buttonTemplateArray.append(letterChoices[randNum])
+			letterChoices.remove(randNum)
+	if upper and !lower:
+		for i in range(buttonArray.size()-selectedLetters.size()):
+			var randNum=randi()%letterChoices.size()
+			while letterChoices[randNum]!=letterChoices[randNum].to_upper():
+				randNum=randi()%letterChoices.size()
+			buttonTemplateArray.append(letterChoices[randNum])
+			letterChoices.remove(randNum)
+	if lower and !upper:
+		for i in range(buttonArray.size()-selectedLetters.size()):
+			var randNum=randi()%letterChoices.size()
+			while letterChoices[randNum]!=letterChoices[randNum].to_lower():
+				randNum=randi()%letterChoices.size()
+			buttonTemplateArray.append(letterChoices[randNum])
+			letterChoices.remove(randNum)
 	buttonTemplateArray.shuffle()
 	return buttonTemplateArray
 
@@ -341,11 +363,9 @@ func resetVariables():
 	holdingdoubles.clear()
 	currentWord.clear()
 	score=0
-	words=["ABC","B","y","b","a","u","o","e","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+	words=["ABC","B","ya","oob","a","u","o","e","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
 	
 
-
-			
 func selectedLetterInDetector(var comparingArray, var selectedButtonTexts):
 	if comparingArray.has(selectedButtonTexts):
 		return true
