@@ -1,8 +1,8 @@
 [gd_scene load_steps=33 format=2]
 
-[ext_resource path="res://Assets/singleKey.png" type="Texture" id=1]
-[ext_resource path="res://Assets/singleKeyPressed.png" type="Texture" id=2]
-[ext_resource path="res://LetterButton.gd" type="Script" id=3]
+[ext_resource path="res://LetterButton.gd" type="Script" id=1]
+[ext_resource path="res://Assets/singleKey.png" type="Texture" id=2]
+[ext_resource path="res://Assets/singleKeyPressed.png" type="Texture" id=3]
 [ext_resource path="res://Assets/HelveticaNeueBold.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://Assets/1941654-emoji/png/N.png" type="Texture" id=5]
 [ext_resource path="res://Assets/1941654-emoji/png/C.png" type="Texture" id=6]
@@ -169,16 +169,26 @@ animations = [ {
 } ]
 
 [node name="LetterButtons" type="TextureButton"]
-margin_right = 200.0
-margin_bottom = 300.0
-texture_normal = ExtResource( 1 )
-texture_pressed = ExtResource( 2 )
+margin_left = 138.716
+margin_top = 215.249
+margin_right = 338.716
+margin_bottom = 515.249
+rect_pivot_offset = Vector2( 6.04492, 1.69583 )
 expand = true
-script = ExtResource( 3 )
+script = ExtResource( 1 )
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+scale = Vector2( 0.4, 0.45 )
+normal = ExtResource( 2 )
+pressed = ExtResource( 3 )
 
 [node name="Label" type="Label" parent="."]
-margin_right = 89.0
-margin_bottom = 180.0
+margin_left = 54.6307
+margin_top = 1.74889
+margin_right = 143.631
+margin_bottom = 181.749
+rect_scale = Vector2( 0.956158, 0.73345 )
+rect_pivot_offset = Vector2( 123.372, 36.4836 )
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "h"
@@ -194,4 +204,7 @@ animation = "Z"
 centered = false
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 99.1938, 142.678 )
+offset = Vector2( -49.3466, -90.0615 )
 [connection signal="pressed" from="." to="." method="_on_LetterButtons_pressed"]
+[connection signal="pressed" from="TouchScreenButton" to="." method="_on_TouchScreenButton_pressed"]

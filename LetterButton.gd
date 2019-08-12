@@ -19,5 +19,9 @@ func _ready():
 func pressing():
 	emit_signal("buttonPressed",get_node("Label").text)
 	
-func _on_LetterButtons_pressed():
+#func _on_LetterButtons_pressed():
+#	emit_signal("buttonPressed",get_node("Label").text)
+
+
+func _on_TouchScreenButton_pressed():
 	emit_signal("buttonPressed",get_node("Label").text)

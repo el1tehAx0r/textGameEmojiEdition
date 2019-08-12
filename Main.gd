@@ -8,6 +8,9 @@ var dropPositions=[]
 var buttonArray=[]
 var letters=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
 var words=[]
+
+var speeds=[Vector2(0,120),Vector2(0, 165),Vector2(0,140),Vector2(0,175),Vector2(0,150),Vector2(0,135),Vector2(0,169)]
+var currentSpeed=speeds[0]
 var wordQueue=[]
 var buttonLayoutArrayofArray=[]
 var correctLetterArrayofArray=[]
@@ -17,6 +20,8 @@ var matchedBodies=[]
 var holdingdoubles=[]
 var currentWord=[]
 var gameStart=false
+var level=1
+var wordNumber=0
 
 
 
@@ -51,14 +56,17 @@ func setupPositioning():
 	var screenSize=get_viewport().size.x
 	var detectorextent=$Detector.get_node("CollisionShape2D").shape.extents
 	var detectorglobalPos=$Detector.get_node("CollisionShape2D").shape.extents
+	print($Detector.position.y-2*detectorextent.y)
 	var possiblePositions= (detectorextent.x*2-20)/(PlayerTexts.instance().get_node("CollisionShape2D").shape.extents.x*2)
 	var detectorLeftCorner=detectorglobalPos.x-detectorextent.x
 	var possibleWidths=(detectorextent.x*2-20)/floor(possiblePositions)
-	var possibleWidthsButton=screenSize/(floor(possiblePositions)+1)
+	var buttonSpacing=(detectorextent.x*2-20)/floor(possiblePositions)
+	var buttonWidths=screenSize/(floor(possiblePositions))
+
 	#var averagespacething=(possibleWidths+possibleWidthsButton)/2
 	for i in range(floor(possiblePositions),0,-1):
 		dropPositions.append(detectorLeftCorner+10+possibleWidths*(i-1))
-		create_button((i-.5)*possibleWidthsButton,575,possibleWidths,100)
+		create_button((i-1)*buttonWidths,530,buttonWidths,100)
 func create_button(positionx,positiony,sizex,sizey):
 	var button=LetterButtons.instance()
 	add_child(button)
@@ -80,7 +88,7 @@ func new_game():
 	$HUD.show_message("Get Ready")
 	$StartTimer.start()
 	$HUD.update_score(score)
-func spawn(position,letter,score):
+func spawn(position,letter,score,velocity):
 	$TextPath/TextSpawnLocation.set_offset(position)
 	#$TextPath/TextSpawnLocation.set_offset(dropPositions[0])
 	var text=PlayerTexts.instance()
@@ -94,8 +102,8 @@ func spawn(position,letter,score):
 		text.get_node("Label").set_visible(true)
 	text.get_node("Label").text=letter
 	text.position = $TextPath/TextSpawnLocation.position
-	var speeds=[Vector2(0, 350),Vector2(0,100),Vector2(0,385),Vector2(0,450)]
-	text.linear_velocity = speeds[1]
+	
+	text.linear_velocity = velocity
 	currentBodies.append(text)
 	$HUD.connect("start_game", text, "_on_start_game")
 
@@ -188,30 +196,106 @@ func createPositionArray(percentageArray,word):
 
 
 func wordManager():
-	var positionArray=[]
-	var letterArray=[]
-	var buttonTemplateArray=[]
 	if wordQueue.size()<2:
-		print(words,"words")
+		#print(words,"words")
 		var selectedWords=wordSelectQueue(2-wordQueue.size(),words)
 		for i in selectedWords:
 			wordQueue.push_back(i)
 			#buttonPotentialArrayofArray.append()
 			#correctButtonArrayofArray=.append()
 			words.remove(words.find(i))
-			var totalArray=createPositionArray(createPercentageArray(score),i)
+			var totalArray=createPositionArray(createPercentageArray(wordNumber),i)
 			#print(totalArray)
 			correctPositionArrayofArray.push_back(totalArray[0])
 			correctLetterArrayofArray.push_back(totalArray[1])
 			buttonLayoutArrayofArray.push_back(totalArray[2])
+	values_to_labels(buttonLayoutArrayofArray[0][0])
+	print(wordNumber)
+	$TextTimer.stop()
+	if wordNumber==0:
+		$TextTimer.wait_time=1.5
+		for i in range(correctPositionArrayofArray[0][0].size()):
+			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,speeds[2])
+		currentSpeed=speeds[2]
+	elif wordNumber==1:
+		var speeding=speeds[randi()%speeds.size()]
+		while (1.5+400/speeding.y<440/currentSpeed.y):
+			speeding=speeds[randi()%speeds.size()]
+		print(speeding.y,"speed")
+		$TextTimer.wait_time=1.2
+		for i in range(correctPositionArrayofArray[0][0].size()):
+			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,speeding)
+	elif wordNumber==2:
+		print("fuck")
+		$TextTimer.wait_time=1
+		for i in range(correctPositionArrayofArray[0][0].size()):
+			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,speeds[2])
+	elif wordNumber<4:
+		$TextTimer.wait_time=1.2 
+		for i in range(correctPositionArrayofArray[0][0].size()):
+			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,speeds[0])
+	elif wordNumber<8:
+		$TextTimer.wait_time=1.7
+		for i in range(correctPositionArrayofArray[0][0].size()):
+			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,speeds[0])
+	
+	elif wordNumber<20:
+		$TextTimer.wait_time=1.1
+		for i in range(correctPositionArrayofArray[0][0].size()):
+			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,speeds[1])
+	elif wordNumber<30:
+		$TextTimer.wait_time=1.2
+		for i in range(correctPositionArrayofArray[0][0].size()):
+			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,speeds[2])
+	elif wordNumber<37:
+		$TextTimer.wait_time=1.2
+		for i in range(correctPositionArrayofArray[0][0].size()):
+			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,speeds[3])
+	else:
+		$TextTimer.wait_time=1.5
+		for i in range(correctPositionArrayofArray[0][0].size()):
+			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,speeds[0])
+	$TextTimer.start()
+	wordNumber+=1
+	holdingdoubles.append(correctLetterArrayofArray[0][0])
+	#print(holdingdoubles,"holll")
+	correctPositionArrayofArray[0].remove(0)
+	correctLetterArrayofArray[0].remove(0)
+	if buttonLayoutArrayofArray[0].size()==0:
+		buttonLayoutArrayofArray.remove(0)
+	if correctPositionArrayofArray[0].size()==0:
+		correctPositionArrayofArray.remove(0)
+	if correctLetterArrayofArray[0].size()==0:
+		correctLetterArrayofArray.remove(0)
+	#print(wordQueue,"first")
+	currentWord.append(wordQueue[0])
+	wordQueue.remove(0)
+	#print(wordNumber,"second")
+
+
+
+	
+		
 		#print("NEXT")
 		#print(wordQueue,"wordQueu")
 		#print(correctPositionArrayofArray,"correctPosition")
 		#print(correctLetterArrayofArray,"correctLetter")
 		#print(buttonLayoutArrayofArray,"buttonLayout")
+	
+	
+	
+
+	#print(wordQueue,"wordQueu")
+	#print(correctPositionArrayofArray,"correctPosition")
+	#print(correctLetterArrayofArray,"correctLetter")
+	#print(buttonLayoutArrayofArray,"buttonLayout")
+		
+
+
+func _on_SpawnTimer_timeout():
 	values_to_labels(buttonLayoutArrayofArray[0][0])
 	for i in range(correctPositionArrayofArray[0][0].size()):
-		spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score)
+		spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,speeds[0])
 	holdingdoubles.append(correctLetterArrayofArray[0][0])
 	#print(holdingdoubles,"holll")
 	correctPositionArrayofArray[0].remove(0)
@@ -226,11 +310,7 @@ func wordManager():
 	currentWord.append(wordQueue[0])
 	wordQueue.remove(0)
 	print(wordQueue,"second")
-	#print(wordQueue,"wordQueu")
-	#print(correctPositionArrayofArray,"correctPosition")
-	#print(correctLetterArrayofArray,"correctLetter")
-	#print(buttonLayoutArrayofArray,"buttonLayout")
-		
+
 
 			
 			
@@ -253,13 +333,20 @@ func wordSelectQueue(howMany,wordList):
 			selectedWords.append(words[i])
 	return selectedWords
 	
-func createPercentageArray(whatIsScore):
-	if whatIsScore<5:
-		return [10,100]
-	elif whatIsScore<10:
-		return[50,100]
+func createPercentageArray(wordNumber):
+	if wordNumber<8:
+		return [95,100]
+	elif wordNumber<12:
+		return [90,100]
+	elif wordNumber<20:
+		return [30,100]
 	else:
-		return [70,100]
+		return [100,100]
+	"""elif whatIsScore<20:
+		$TextTimer.wait_time=1.2
+		currentSpeed=speeds[0]
+		return [90,100]"""
+	
 func slowFreezeLetters(curren):
 	for i in curren:
 		if is_instance_valid(i):
@@ -294,7 +381,7 @@ func buttonChoiceCreator(selectedLetters):
 			upper=true
 		if i==i.to_lower():
 			lower=true
-		print(i,"itoll")
+		#print(i,"itoll")
 		buttonTemplateArray.append(i)
 		letterChoices.remove(letterChoices.find(i))
 	if upper and lower:
@@ -336,10 +423,10 @@ func _on_TextTimer_timeout():
 	wordManager()
 	
 func game_over():
-	gameStart=false
 	slowFreezeLetters(currentBodies)
+	gameStart=false
 	$Bloop.play()
-	
+	$SpawnTimer.stop()
 	$TextTimer.stop()
 	$HUD.show_game_over()
 
@@ -352,6 +439,8 @@ func game_over():
 	
 func resetVariables():
 	randomize()
+	wordNumber=0
+	$TextTimer.wait_time=0
 	matchedBodies.clear()
 	wordQueue.clear()
 	buttonLayoutArrayofArray.clear()
@@ -363,8 +452,15 @@ func resetVariables():
 	holdingdoubles.clear()
 	currentWord.clear()
 	score=0
-	words=["ABC","B","ya","oob","a","u","o","e","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
-	
+	level=1
+	words=["a","b","c","d","e","A","B","C","ih","oy","pu","oy","on","no","bro","pls","lol","yay","wow","AB","time","DAX","is","F","up","mi","nekorb","Xpleh",'Yslp','h','e','l','p','fY','fX','fT','fG','fL','F','F','F','ABCDEF','GHIJKL','MNOPQR','STUVWXY',"dneirf","DA",'sknaht','rof','nipleh','tAC',"B","god","C","woc","D","d","e","AKX","g","DEF","i","evol","u","bb","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+	var whereat=0
+	var wutiswordnumba=[]
+	for i in words:
+		wutiswordnumba.append(whereat)
+		wutiswordnumba.append(i)
+		whereat+=len(i)
+	print(wutiswordnumba)
 
 func selectedLetterInDetector(var comparingArray, var selectedButtonTexts):
 	if comparingArray.has(selectedButtonTexts):
@@ -398,4 +494,3 @@ func add_one_to_score():
 
 
 	
-
