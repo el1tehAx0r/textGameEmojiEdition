@@ -55,6 +55,9 @@ volume_db = -18.675
 
 [node name="Bloop" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
+
+[node name="EndTimer" type="Timer" parent="."]
+wait_time = 3.0
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
 [connection signal="start_game" from="HUD" to="." method="new_game"]
 [connection signal="exit" from="Detector" to="." method="_on_Detector_exit"]
@@ -62,3 +65,4 @@ stream = ExtResource( 8 )
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
 [connection signal="timeout" from="TextTimer" to="." method="_on_TextTimer_timeout"]
 [connection signal="entered" from="Back" to="." method="_on_Back_entered"]
+[connection signal="timeout" from="EndTimer" to="." method="_on_EndTimer_timeout"]
