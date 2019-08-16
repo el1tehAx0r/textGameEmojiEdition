@@ -33,8 +33,14 @@ func _ready():
 	setupPositioning()
 	values_to_labels(["p","u","s","s","a","w"])
 	set_process_input(true)
-	admob=Engine.get_singleton("Admob")
-	print(admob)
+	if Engine.has_singleton("AdMob"):
+		admob = Engine.get_singleton("AdMob")
+		admob.init(false, get_instance_id())
+		admob.loadBanner("ca-app-pub-3940256099942544/6300978111",true)
+		print("fuck")
+	if admob:
+        admob.showBanner()
+        
 	
 func _process(delta):
 	if Input.is_action_just_pressed("a"):
@@ -87,8 +93,6 @@ func create_button(positionx,positiony,sizex,sizey):
 	
 	 
 func new_game():
-	if(Engine.has_singleton("AdMob")):
-		print("HellO")
 	resetVariables()
 #$Detector.start($StartPosition.position)
 	$HUD.show_message("Get Ready")
