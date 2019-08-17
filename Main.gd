@@ -36,7 +36,7 @@ func _ready():
 	if Engine.has_singleton("AdMob"):
 		admob = Engine.get_singleton("AdMob")
 		admob.init(false, get_instance_id())
-		admob.loadBanner("ca-app-pub-3940256099942544/6300978111",true)
+		admob.loadBanner("ca-app-pub-8163785840954716/1983507262",true)
 		print("fuck")
 	if admob:
         admob.showBanner()
@@ -519,7 +519,7 @@ func resetVariables():
 	score=0
 	level=1
 	currentSpeed=speeds[0]
-	words=["Z","b","c","d","e","A","B","D","ih","oy","pu","oy","on","no","bro","pls","lol","yay","wow","AB","time","DAX","is","F","up","mi","nekorb","Xpleh",'Yslp','h','e','l','p','fY','fX','fT','fG','fL','F','F','F','ABCDEF','GHIJKL','MNOPQR','STUVWXY',"dneirf","DA",'sknaht','rof','nipleh','tAC',"B","god","C","woc","D","d","e","AKX","g","DEF","i","evol","u","bb","oy","siht","si","eht","linaf","level","evah","nuf","dna","sknaht","rof","niyalp","eraA","Buoy","Lydear","A","GKXl","ZYtm","ZMyxle","LTkol","V","C","J","KMIPR","emag","Wdne","Qevah","Odug","Byad","A","A","A","A","A","A","A","A","A","A","A","A","A","A"]
+	words=["a","b","c","d","e","A","B","D","ih","oy","pu","oy","on","no","bro","pls","lol","yay","wow","AB","time","DAX","is","F","up","mi","nekorb","Xpleh",'Yslp','h','e','l','p','fY','fX','fT','fG','fL','F','F','F','ABCDEF','GHIJKL','MNOPQR','STUVWXY',"dneirf","DA",'sknaht','rof','nipleh','tAC',"B","god","C","woc","D","d","e","AKX","g","DEF","i","evol","u","bb","oy","siht","si","eht","linaf","level","evah","nuf","dna","sknaht","rof","niyalp","eraA","Buoy","Lydear","A","GKXl","ZYtm","ZMyxle","LTkol","V","C","J","KMIPR","emag","Wdne","Qevah","Odug","Byad","A","A","A","A","A","A","A","A","A","A","A","A","A","A"]
 	var whereat=0
 	var wutiswordnumba=[]
 	for i in words:
