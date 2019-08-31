@@ -16,8 +16,11 @@ func show_message(text):
 func update_score(score):
     $ScoreLabel.text = str(score)
 
-func show_game_over():    
-	show_message("Game Over")
+func show_game_over(wordNumber):   
+	if  wordNumber>=268:
+		show_message("WINRAR")
+	else:
+		show_message("Game Over")
 	$LevelLabel.hide()
 	$LevelTimer.stop()
 	yield($MessageTimer, "timeout")

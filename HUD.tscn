@@ -24,10 +24,11 @@ font_data = ExtResource( 2 )
 script = ExtResource( 1 )
 
 [node name="ScoreLabel" type="Label" parent="."]
-margin_left = 214.65
-margin_top = 36.4657
-margin_right = 435.65
-margin_bottom = 161.466
+margin_left = 224.903
+margin_top = 59.0217
+margin_right = 445.903
+margin_bottom = 184.022
+rect_scale = Vector2( 0.679999, 0.679999 )
 custom_fonts/font = SubResource( 1 )
 text = "0
 "

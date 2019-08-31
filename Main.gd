@@ -9,7 +9,7 @@ var buttonArray=[]
 var letters=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
 var words=[]
 var admob=null
-var speeds=[Vector2(0,120),Vector2(0, 155),Vector2(0,140),Vector2(0,175),Vector2(0,150),Vector2(0,135),Vector2(0,169)]
+var speeds=[Vector2(0,120),Vector2(0, 155),Vector2(0,170),Vector2(0,190),Vector2(0,150),Vector2(0,135),Vector2(0,169)]
 var hardspeeds=[Vector2(0,220),Vector2(0, 250),Vector2(0,280),Vector2(0,295),Vector2(0,200),Vector2(0,300),Vector2(0,320),Vector2(0,310),Vector2(0,275)]
 var currentSpeed=speeds[0]
 var wordQueue=[]
@@ -24,6 +24,26 @@ var gameStart=false
 var level=1
 var wordNumber=0
 
+var score_file = "user://highscore.save"
+var highscore
+
+func load_score():
+    var f = File.new()
+    if f.file_exists(score_file):
+        f.open(score_file, File.READ)
+        highscore = f.get_var()
+        f.close()
+    else:
+        highscore = 0
+
+func save_score():
+	var f = File.new()
+	f.open(score_file, File.WRITE)
+	if score>highscore:
+    	f.store_var(score)
+	else:
+		f.store_var(highscore)
+	f.close()
 
 
 
@@ -31,16 +51,19 @@ func _ready():
 	randomize()
 	#admob.init(false,get_instance_id())
 	setupPositioning()
-	values_to_labels(["p","u","s","s","a","w"])
+	values_to_labels(["p","u","z","z","a","w"])
 	set_process_input(true)
+	load_score()
+	print(highscore,"rar")
 	if Engine.has_singleton("AdMob"):
 		admob = Engine.get_singleton("AdMob")
-		admob.init(false, get_instance_id())
+		admob.init(true, get_instance_id())
 		admob.loadBanner("ca-app-pub-8163785840954716/1983507262",true)
 		print("fuck")
 	if admob:
         admob.showBanner()
-        
+
+
 	
 func _process(delta):
 	if Input.is_action_just_pressed("a"):
@@ -61,7 +84,7 @@ func setupPositioning():
 	var screenSize=get_viewport().size.x
 	var detectorextent=$Detector.get_node("CollisionShape2D").shape.extents
 	var detectorglobalPos=$Detector.get_node("CollisionShape2D").shape.extents
-	print($Detector.position.y-2*detectorextent.y)
+	print($Detector.position.y-1*detectorextent.y)
 	var possiblePositions= (detectorextent.x*2-20)/(PlayerTexts.instance().get_node("CollisionShape2D").shape.extents.x*2)
 	var detectorLeftCorner=detectorglobalPos.x-detectorextent.x
 	var possibleWidths=(detectorextent.x*2-20)/floor(possiblePositions)
@@ -237,30 +260,41 @@ func wordManager():
 		$TextTimer.wait_time=1
 		for i in range(correctPositionArrayofArray[0][0].size()):
 			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,speeds[2])"""
-	if wordNumber<4:
-		$TextTimer.wait_time=1.2 
+	if wordNumber<5:
+		if wordNumber+correctPositionArrayofArray[0][0].size()>4:
+			$TextTimer.wait_time=1.45
+		else:
+			$TextTimer.wait_time=1.2 
 		for i in range(correctPositionArrayofArray[0][0].size()):
-			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,speeds[0])
+			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,Vector2(0,rand_range(120,143)))
 	elif wordNumber<8:
-		$TextTimer.wait_time=1.45
+		if wordNumber+correctPositionArrayofArray[0][0].size()>7:
+			$TextTimer.wait_time=1.62
+		else:
+			$TextTimer.wait_time==1.45
 		for i in range(correctPositionArrayofArray[0][0].size()):
-			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,speeds[0])
+			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,Vector2(0,rand_range(130,160)))
 	elif wordNumber<20:
-		$TextTimer.wait_time=1.6
+		$TextTimer.wait_time=1.35
 		for i in range(correctPositionArrayofArray[0][0].size()):
-			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,speeds[1])
+			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,speeds[2])
 	elif wordNumber<30:
 		$TextTimer.wait_time=1.2
 		for i in range(correctPositionArrayofArray[0][0].size()):
 			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,speeds[2])
-	elif wordNumber<37:
-		$TextTimer.wait_time=1.2
+	elif wordNumber<46:
+		$TextTimer.wait_time=rand_range(.7,1.2)
+		for i in range(correctPositionArrayofArray[0][0].size()):
+			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,speeds[2])
+		currentSpeed=speeds[3]
+	elif wordNumber<52:
+		$TextTimer.wait_time=rand_range(.65,1.25)
 		for i in range(correctPositionArrayofArray[0][0].size()):
 			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,speeds[3])
 		currentSpeed=speeds[3]
 	elif wordNumber<66:
 		var speeding=speeds[randi()%speeds.size()]
-		while (1.3+395/speeding.y<440/currentSpeed.y):
+		while (1.2+375/speeding.y<440/currentSpeed.y):
 			speeding=speeds[randi()%speeds.size()]
 		print(speeding.y,"speed")
 		for i in range(correctPositionArrayofArray[0][0].size()):
@@ -271,7 +305,7 @@ func wordManager():
 			$TextTimer.wait_time=1.3
 		currentSpeed=speeding
 	elif wordNumber<108:
-		$TextTimer.wait_time=1
+		$TextTimer.wait_time=0.7
 		for i in range(correctPositionArrayofArray[0][0].size()):
 			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,Vector2(0,300))
 		if wordNumber+correctPositionArrayofArray[0][0].size()>107:
@@ -281,7 +315,7 @@ func wordManager():
 		currentSpeed=Vector2(0,300)
 	elif wordNumber<165:
 		var speeding=speeds[randi()%speeds.size()]
-		while (1+395/speeding.y<440/currentSpeed.y):
+		while (1+370/speeding.y<440/currentSpeed.y):
 			speeding=speeds[randi()%speeds.size()]
 		print(speeding.y,"speed")
 		for i in range(correctPositionArrayofArray[0][0].size()):
@@ -293,18 +327,20 @@ func wordManager():
 		currentSpeed=speeding
 	elif wordNumber<269:
 		if $TextTimer.wait_time==4:
-			currentSpeed==hardspeeds[1]
+			currentSpeed=hardspeeds[1]
 			for i in range(correctPositionArrayofArray[0][0].size()):
 				spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,currentSpeed)
+			$TextTimer.wait_time=rand_range(.5,1.2)
 		else:
-			var speeding=speeds[randi()%speeds.size()]
-			while (1+395/speeding.y<440/currentSpeed.y):
-				speeding=speeds[randi()%speeds.size()]
+			var speeding=hardspeeds[randi()%speeds.size()]
+			while ($TextTimer.wait_time+365/speeding.y<440/currentSpeed.y):
+				speeding=hardspeeds[randi()%speeds.size()]
 			for i in range(correctPositionArrayofArray[0][0].size()):
 				spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,speeding)
 			currentSpeed=speeding
-		$TextTimer.wait_time=1
-		$EndTimer.start()
+		$TextTimer.wait_time=rand_range(.5,1.2)
+		if wordNumber+correctPositionArrayofArray[0][0].size()>268:
+			$EndTimer.start()
 	else:
 		$TextTimer.wait_time=1.5
 		for i in range(correctPositionArrayofArray[0][0].size()):
@@ -336,16 +372,11 @@ func wordManager():
 		#print(correctPositionArrayofArray,"correctPosition")
 		#print(correctLetterArrayofArray,"correctLetter")
 		#print(buttonLayoutArrayofArray,"buttonLayout")
-	
-	
-	
 
 	#print(wordQueue,"wordQueu")
 	#print(correctPositionArrayofArray,"correctPosition")
 	#print(correctLetterArrayofArray,"correctLetter")
 	#print(buttonLayoutArrayofArray,"buttonLayout")
-		
-
 
 func _on_SpawnTimer_timeout():
 	values_to_labels(buttonLayoutArrayofArray[0][0])
@@ -366,10 +397,6 @@ func _on_SpawnTimer_timeout():
 	wordQueue.remove(0)
 	print(wordQueue,"second")
 
-
-			
-			
-			
 func values_to_labels(var letters):
 	for i in range(letters.size()):
 		buttonArray[i].get_node("Label").text=letters[i]
@@ -488,12 +515,13 @@ func _on_TextTimer_timeout():
 	wordManager()
 	
 func game_over():
+	save_score()
 	slowFreezeLetters(currentBodies)
 	gameStart=false
 	$Bloop.play()
 	$SpawnTimer.stop()
 	$TextTimer.stop()
-	$HUD.show_game_over()
+	$HUD.show_game_over(wordNumber)
 
 	
 
