@@ -1,8 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://HUD.gd" type="Script" id=1]
 [ext_resource path="res://Xolonium-Regular.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://Assets/lilbub.png" type="Texture" id=3]
+[ext_resource path="res://Assets/10.png" type="Texture" id=3]
+[ext_resource path="res://Assets/lilbub.png" type="Texture" id=4]
+[ext_resource path="res://Assets/icons8-help-64.png" type="Texture" id=5]
+[ext_resource path="res://Assets/playbutton.png" type="Texture" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -23,21 +26,60 @@ font_data = ExtResource( 2 )
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource( 1 )
 
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_left = 2.356
+margin_top = -9.02805
+margin_right = 42.356
+margin_bottom = 30.972
+rect_scale = Vector2( 12.9512, 37.89 )
+
 [node name="ScoreLabel" type="Label" parent="."]
-margin_left = 224.903
-margin_top = 59.0217
-margin_right = 445.903
-margin_bottom = 184.022
-rect_scale = Vector2( 0.679999, 0.679999 )
+visible = false
+margin_left = 206.448
+margin_top = 116.437
+margin_right = 427.448
+margin_bottom = 241.437
+rect_scale = Vector2( 0.999999, 1.08 )
 custom_fonts/font = SubResource( 1 )
 text = "0
 "
 
+[node name="HighScoreLabel" type="Label" parent="."]
+margin_left = 64.9603
+margin_top = 126.69
+margin_right = 563.96
+margin_bottom = 251.69
+rect_scale = Vector2( 0.679999, 0.679999 )
+custom_fonts/font = SubResource( 1 )
+text = "      High Score: 0
+"
+
+[node name="EndGameLabel" type="Label" parent="."]
+visible = false
+margin_left = 112.137
+margin_top = 134.892
+margin_right = 611.137
+margin_bottom = 451.892
+rect_scale = Vector2( 0.679999, 0.679999 )
+custom_fonts/font = SubResource( 1 )
+text = "Last Score: 0
+Best Score: 0
+"
+
+[node name="TextureRect" type="TextureRect" parent="EndGameLabel"]
+show_behind_parent = true
+margin_left = -232.303
+margin_top = -365.005
+margin_right = 1767.7
+margin_bottom = 1635.0
+rect_scale = Vector2( 1.14745, 1.56244 )
+texture = ExtResource( 3 )
+
 [node name="MessageLabel" type="Label" parent="."]
-margin_left = 49.8644
-margin_top = 98.549
-margin_right = 444.864
-margin_bottom = 190.549
+margin_left = 41.6622
+margin_top = 182.621
+margin_right = 436.662
+margin_bottom = 274.621
 custom_fonts/font = SubResource( 2 )
 text = "TriPpY tExTeR"
 
@@ -49,36 +91,10 @@ margin_right = 464.652
 margin_bottom = 590.306
 custom_fonts/font = SubResource( 2 )
 
-[node name="InstructionLabel2" type="Label" parent="InstructionLabel"]
-margin_top = 572.789
-margin_right = 446.0
-margin_bottom = 1145.79
-custom_fonts/font = SubResource( 2 )
-text = "
-Do not press
-"
-
-[node name="InstructionLabel3" type="Label" parent="InstructionLabel"]
-margin_left = 4.2963
-margin_top = 425.645
-margin_right = 450.296
-margin_bottom = 998.645
-custom_fonts/font = SubResource( 2 )
-text = "         Press
-      v                v"
-
-[node name="InstructionLabel5" type="Label" parent="InstructionLabel"]
-margin_left = 18.6501
-margin_top = 595.84
-margin_right = 464.65
-margin_bottom = 1168.84
-custom_fonts/font = SubResource( 2 )
-text = "^    ^     ^   ^"
-
 [node name="Sprite" type="Sprite" parent="InstructionLabel"]
-position = Vector2( 186.6, 418.311 )
+position = Vector2( 188.758, 433.42 )
 scale = Vector2( 0.72, 0.840001 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
 [node name="InstructionLabel6" type="Label" parent="InstructionLabel/Sprite"]
 margin_left = 142.67
@@ -89,10 +105,45 @@ rect_scale = Vector2( 2, 1.18945 )
 custom_fonts/font = SubResource( 2 )
 text = "p"
 
+[node name="InstructionLabel2" type="Label" parent="InstructionLabel"]
+margin_left = -6.47543
+margin_top = 572.789
+margin_right = 439.525
+margin_bottom = 1145.79
+custom_fonts/font = SubResource( 2 )
+text = "
+Do not press
+"
+
+[node name="InstructionLabel4" type="Label" parent="InstructionLabel"]
+margin_left = 51.7825
+margin_top = 436.437
+margin_right = 497.782
+margin_bottom = 1009.44
+custom_fonts/font = SubResource( 2 )
+text = "         Press
+  "
+
+[node name="InstructionLabel3" type="Label" parent="InstructionLabel"]
+margin_left = -19.4469
+margin_top = 455.863
+margin_right = 444.553
+margin_bottom = 1028.86
+custom_fonts/font = SubResource( 2 )
+text = "       v                  v"
+
+[node name="InstructionLabel5" type="Label" parent="InstructionLabel"]
+margin_left = 7.85774
+margin_top = 595.84
+margin_right = 453.858
+margin_bottom = 1168.84
+custom_fonts/font = SubResource( 2 )
+text = "^        ^   ^    ^"
+
 [node name="Sprite3" type="Sprite" parent="InstructionLabel"]
-position = Vector2( -49.2131, 422.413 )
+position = Vector2( -49.2131, 435.364 )
 scale = Vector2( 0.72, 0.840001 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
 [node name="InstructionLabel7" type="Label" parent="InstructionLabel/Sprite3"]
 margin_left = 148.366
@@ -115,38 +166,68 @@ text = "Level 0"
 [node name="MessageTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="FlashTimer" type="Timer" parent="."]
+wait_time = 0.32
+one_shot = true
+
 [node name="LevelTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="StartButton" type="Button" parent="."]
-margin_left = 168.292
-margin_top = 175.736
-margin_right = 314.292
-margin_bottom = 260.736
-size_flags_stretch_ratio = 0.0
-custom_fonts/font = SubResource( 3 )
-text = "Start"
-
 [node name="InstructionButton" type="Button" parent="."]
-margin_left = 71.0238
-margin_top = 273.456
-margin_right = 397.024
-margin_bottom = 358.456
+margin_left = 251.472
+margin_top = 259.102
+margin_right = 577.472
+margin_bottom = 344.102
+rect_scale = Vector2( 0.443736, 0.966366 )
 size_flags_stretch_ratio = 0.0
 custom_fonts/font = SubResource( 3 )
-text = "Instructions"
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+
+[node name="TextureRect" type="TextureRect" parent="InstructionButton"]
+margin_left = 83.1798
+margin_top = 6.55728
+margin_right = 183.18
+margin_bottom = 106.557
+rect_scale = Vector2( 2.69087, 1.09026 )
+texture = ExtResource( 5 )
+
+[node name="StartButton" type="Button" parent="."]
+margin_left = 62.8217
+margin_top = 259.102
+margin_right = 388.822
+margin_bottom = 344.102
+rect_scale = Vector2( 0.483736, 0.926365 )
+size_flags_stretch_ratio = 0.0
+custom_fonts/font = SubResource( 3 )
+
+[node name="TextureRect" type="TextureRect" parent="StartButton"]
+margin_left = 97.4965
+margin_top = 9.2726
+margin_right = 197.497
+margin_bottom = 109.273
+rect_scale = Vector2( 2.07497, 1.01633 )
+texture = ExtResource( 6 )
 
 [node name="BackButton" type="Button" parent="."]
 visible = false
-margin_left = 173.68
-margin_top = 164.657
-margin_right = 315.68
-margin_bottom = 231.657
+margin_left = 151.364
+margin_top = 245.553
+margin_right = 293.364
+margin_bottom = 312.553
 size_flags_stretch_ratio = 0.0
 custom_fonts/font = SubResource( 3 )
 text = "Back"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+margin_left = -49.028
+margin_top = -27.0144
+margin_right = -9.02803
+margin_bottom = 12.9856
+rect_scale = Vector2( 14.2271, 19.3919 )
 [connection signal="timeout" from="MessageTimer" to="." method="_on_MessageTimer_timeout"]
+[connection signal="timeout" from="FlashTimer" to="." method="_on_FlashTimer_timeout"]
 [connection signal="timeout" from="LevelTimer" to="." method="_on_LevelTimer_timeout"]
-[connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]
 [connection signal="pressed" from="InstructionButton" to="." method="_on_InstructionButton_pressed"]
+[connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]
 [connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]

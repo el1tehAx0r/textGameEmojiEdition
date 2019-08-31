@@ -54,6 +54,7 @@ func _ready():
 	values_to_labels(["p","u","z","z","a","w"])
 	set_process_input(true)
 	load_score()
+	$HUD.update_highscore(highscore)
 	print(highscore,"rar")
 	if Engine.has_singleton("AdMob"):
 		admob = Engine.get_singleton("AdMob")
@@ -113,7 +114,7 @@ func create_button(positionx,positiony,sizex,sizey):
 func new_game():
 	resetVariables()
 #$Detector.start($StartPosition.position)
-	$HUD.show_message("Get Ready")
+	$HUD.show_message("   Get Ready")
 	$StartTimer.start()
 	$HUD.update_score(score)
 func spawn(position,letter,score,velocity):
@@ -516,12 +517,16 @@ func _on_TextTimer_timeout():
 	
 func game_over():
 	save_score()
+	$HUD.update_highscore(highscore)
+	$HUD.update_endScore(score,highscore)
+
 	slowFreezeLetters(currentBodies)
 	gameStart=false
 	$Bloop.play()
 	$SpawnTimer.stop()
 	$TextTimer.stop()
 	$HUD.show_game_over(wordNumber)
+	
 
 	
 
