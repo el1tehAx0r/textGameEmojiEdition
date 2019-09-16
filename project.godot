@@ -21,7 +21,8 @@ modules="org/godotengine/godot/GodotAdMob"
 
 config/name="New Game Project"
 run/main_scene="res://Main.tscn"
-config/icon="res://Assets/icon.png"
+boot_splash/image="res://Assets/graphics.png"
+config/icon="res://Assets/front.png"
 
 [display]
 

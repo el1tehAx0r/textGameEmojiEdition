@@ -4,6 +4,7 @@ export (PackedScene) var PlayerTexts
 export (PackedScene) var LetterButtons
 var screenSize
 var score
+var gamecount=0
 var dropPositions=[]
 var buttonArray=[]
 var letters=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
@@ -49,7 +50,6 @@ func save_score():
 
 func _ready():
 	randomize()
-	#admob.init(false,get_instance_id())
 	setupPositioning()
 	values_to_labels(["p","u","z","z","a","w"])
 	set_process_input(true)
@@ -60,9 +60,12 @@ func _ready():
 		admob = Engine.get_singleton("AdMob")
 		admob.init(true, get_instance_id())
 		admob.loadBanner("ca-app-pub-8163785840954716/1983507262",true)
+		admob.loadInterstitial("ca-app-pub-8163785840954716/5016662425")
 		print("fuck")
 	if admob:
-        admob.showBanner()
+		admob.showBanner()
+		
+
 
 
 	
@@ -90,12 +93,12 @@ func setupPositioning():
 	var detectorLeftCorner=detectorglobalPos.x-detectorextent.x
 	var possibleWidths=(detectorextent.x*2-20)/floor(possiblePositions)
 	var buttonSpacing=(detectorextent.x*2-20)/floor(possiblePositions)
-	var buttonWidths=screenSize/(floor(possiblePositions))
+	var buttonWidths=(screenSize-5)/(floor(possiblePositions))
 
 	#var averagespacething=(possibleWidths+possibleWidthsButton)/2
 	for i in range(floor(possiblePositions),0,-1):
 		dropPositions.append(detectorLeftCorner+10+possibleWidths*(i-1))
-		create_button((i-1)*buttonWidths,510,buttonWidths,100)
+		create_button(2.5+(i-1)*buttonWidths,510,buttonWidths,100)
 func create_button(positionx,positiony,sizex,sizey):
 	var button=LetterButtons.instance()
 	add_child(button)
@@ -435,6 +438,7 @@ func createPercentageArray(wordNumber):
 	
 func slowFreezeLetters(curren):
 	for i in curren:
+		
 		if is_instance_valid(i):
 			if i.get_class()=="RigidBody2D":
 				i.linear_velocity=Vector2(0,0)
@@ -516,16 +520,18 @@ func _on_TextTimer_timeout():
 	wordManager()
 	
 func game_over():
+	gamecount+=1
 	save_score()
+	load_score()
 	$HUD.update_highscore(highscore)
 	$HUD.update_endScore(score,highscore)
-
 	slowFreezeLetters(currentBodies)
 	gameStart=false
 	$Bloop.play()
 	$SpawnTimer.stop()
 	$TextTimer.stop()
 	$HUD.show_game_over(wordNumber)
+	admob.showInterstitial()
 	
 
 	
@@ -598,3 +604,15 @@ func add_one_to_score():
 
 func _on_EndTimer_timeout():
 	game_over()
+	
+
+	
+
+
+func _on_HUD_instruction():
+	values_to_labels(["p","u","z","z","a","w"])
+	pass # Replace with function body.
+
+
+func _on_HUD_back():
+	pass # Replace with function body.
