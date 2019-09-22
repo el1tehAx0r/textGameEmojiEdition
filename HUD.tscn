@@ -1,18 +1,19 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://HUD.gd" type="Script" id=1]
 [ext_resource path="res://Assets/lilbub.png" type="Texture" id=2]
 [ext_resource path="res://Xolonium-Regular.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Tut.gd" type="Script" id=4]
-[ext_resource path="res://Assets/10.png" type="Texture" id=5]
-[ext_resource path="res://Assets/singleKeya.png" type="Texture" id=6]
-[ext_resource path="res://Assets/clipart154905.png" type="Texture" id=7]
-[ext_resource path="res://Assets/icons8-help-64.png" type="Texture" id=8]
-[ext_resource path="res://Assets/No-Symbol.svg" type="Texture" id=9]
-[ext_resource path="res://Assets/playbutton.png" type="Texture" id=10]
-[ext_resource path="res://Assets/red.png" type="Texture" id=11]
-[ext_resource path="res://Assets/green.png" type="Texture" id=12]
-[ext_resource path="res://Assets/finger-pointing-down-emoji-by-google.png" type="Texture" id=13]
+[ext_resource path="res://Assets/backOfKeyboard.png" type="Texture" id=5]
+[ext_resource path="res://Assets/10.png" type="Texture" id=6]
+[ext_resource path="res://Assets/singleKeya.png" type="Texture" id=7]
+[ext_resource path="res://Assets/clipart154905.png" type="Texture" id=8]
+[ext_resource path="res://Assets/icons8-help-64.png" type="Texture" id=9]
+[ext_resource path="res://Assets/No-Symbol.svg" type="Texture" id=10]
+[ext_resource path="res://Assets/playbutton.png" type="Texture" id=11]
+[ext_resource path="res://Assets/red.png" type="Texture" id=12]
+[ext_resource path="res://Assets/green.png" type="Texture" id=13]
+[ext_resource path="res://Assets/finger-pointing-down-emoji-by-google.png" type="Texture" id=14]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -79,6 +80,32 @@ custom_fonts/font = SubResource( 2 )
 text = "0
 "
 
+[node name="Instructionz" type="Label" parent="."]
+visible = false
+margin_left = 36.8103
+margin_top = 190.0
+margin_right = 835.81
+margin_bottom = 571.0
+rect_scale = Vector2( 0.381801, 0.434466 )
+custom_fonts/font = SubResource( 1 )
+text = "Instructions:
+Wait till text
+ bubble completely 
+BELOW black line. 
+Then press the
+ matching button"
+
+[node name="TextureRect" type="TextureRect" parent="Instructionz"]
+modulate = Color( 0.0901961, 0.521569, 0.996078, 1 )
+self_modulate = Color( 0.858824, 0.831373, 0.831373, 1 )
+show_behind_parent = true
+margin_left = -48.1847
+margin_top = -10.956
+margin_right = 591.815
+margin_bottom = 389.044
+rect_scale = Vector2( 0.912758, 1.04448 )
+texture = ExtResource( 5 )
+
 [node name="HighScoreLabel" type="Label" parent="."]
 margin_left = 77.2669
 margin_top = 79.2217
@@ -108,7 +135,7 @@ margin_top = -372.723
 margin_right = 574.73
 margin_bottom = 107.277
 rect_scale = Vector2( 1.23529, 1.58824 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="MessageLabel" type="Label" parent="."]
 margin_left = 52.2107
@@ -127,7 +154,7 @@ rect_scale = Vector2( 0.367285, 0.432757 )
 toggle_mode = true
 pressed = true
 action_mode = 0
-texture_normal = ExtResource( 6 )
+texture_normal = ExtResource( 7 )
 
 [node name="TextureRect2" type="TextureRect" parent="."]
 visible = false
@@ -137,7 +164,7 @@ margin_right = 937.0
 margin_bottom = 1286.0
 rect_scale = Vector2( 0.0529977, 0.0831983 )
 mouse_filter = 2
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
 [node name="InstructionLabel" type="Label" parent="."]
 visible = false
@@ -247,7 +274,7 @@ margin_top = 8.63852
 margin_right = 91.8099
 margin_bottom = 72.6385
 rect_scale = Vector2( 2.15, 1 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 
 [node name="TextureRect5" type="TextureRect" parent="."]
 margin_left = -419.192
@@ -256,7 +283,7 @@ margin_right = 380.808
 margin_bottom = 705.809
 rect_scale = Vector2( 0.0687723, 0.0745428 )
 rect_pivot_offset = Vector2( 474.344, 715.28 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
 [node name="TextureRect6" type="TextureRect" parent="."]
 margin_left = -342.803
@@ -266,7 +293,7 @@ margin_bottom = 707.037
 rect_scale = Vector2( 0.0687723, 0.0745428 )
 rect_pivot_offset = Vector2( 474.344, 715.28 )
 mouse_filter = 2
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
 [node name="TextureRect7" type="TextureRect" parent="."]
 margin_left = -265.552
@@ -275,7 +302,7 @@ margin_right = 534.448
 margin_bottom = 700.037
 rect_scale = Vector2( 0.0687723, 0.0745428 )
 rect_pivot_offset = Vector2( 474.344, 715.28 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
 [node name="TextureRect8" type="TextureRect" parent="."]
 margin_left = -190.574
@@ -284,7 +311,7 @@ margin_right = 609.426
 margin_bottom = 700.037
 rect_scale = Vector2( 0.0687723, 0.0745428 )
 rect_pivot_offset = Vector2( 474.344, 715.28 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
 [node name="TextureRect9" type="TextureRect" parent="."]
 margin_left = -117.868
@@ -293,7 +320,7 @@ margin_right = 682.132
 margin_bottom = 697.765
 rect_scale = Vector2( 0.0687723, 0.0745428 )
 rect_pivot_offset = Vector2( 474.344, 715.28 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
 [node name="TextureRect10" type="TextureRect" parent="."]
 margin_left = -42.8892
@@ -302,7 +329,7 @@ margin_right = 757.111
 margin_bottom = 697.765
 rect_scale = Vector2( 0.0687723, 0.0745428 )
 rect_pivot_offset = Vector2( 474.344, 715.28 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
 [node name="StartButton" type="Button" parent="."]
 visible = false
@@ -321,7 +348,7 @@ margin_top = 9.0
 margin_right = 98.0
 margin_bottom = 73.0
 rect_scale = Vector2( 2.07497, 1.01633 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 
 [node name="BackButton" type="Button" parent="."]
 visible = false
@@ -340,7 +367,7 @@ margin_right = 1298.65
 margin_bottom = 1040.0
 rect_scale = Vector2( 0.199996, 0.279997 )
 mouse_filter = 2
-texture = ExtResource( 11 )
+texture = ExtResource( 12 )
 
 [node name="TextureRect11" type="TextureRect" parent="."]
 visible = false
@@ -350,7 +377,7 @@ margin_right = 1290.0
 margin_bottom = 1044.73
 rect_scale = Vector2( 0.203411, 0.274083 )
 mouse_filter = 2
-texture = ExtResource( 12 )
+texture = ExtResource( 13 )
 
 [node name="Node2D2" type="Node2D" parent="."]
 visible = false
@@ -366,7 +393,7 @@ margin_bottom = 480.883
 rect_rotation = 359.999
 rect_scale = Vector2( 0.120294, 0.131346 )
 mouse_filter = 2
-texture = ExtResource( 13 )
+texture = ExtResource( 14 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false

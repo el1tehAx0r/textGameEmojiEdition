@@ -11,7 +11,7 @@ func _ready():
 	pass # Replace with function body.
 func _process(delta):
 	if move>=0:
-		if $Node2D.position.y<408:
+		if $Node2D.position.y<412:
 			$Node2D.position.y=$Node2D.position.y+3
 		else:
 			move+=1
@@ -144,7 +144,7 @@ func _on_FlashTimer_timeout():
 
 
 func _on_TextureButton_pressed():
-	if $Node2D.position.y>408:
+	if $Node2D.position.y>412:
 		$StartButton.hide()
 		$EndGameLabel.hide()
 		$HighScoreLabel.hide()

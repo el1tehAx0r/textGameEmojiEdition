@@ -7,6 +7,7 @@ var score
 var gamecount=0
 var dropPositions=[]
 var buttonArray=[]
+var levelMarkings=[20,22]
 var letters=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
 var words=[]
 var admob=null
@@ -264,39 +265,40 @@ func wordManager():
 		$TextTimer.wait_time=1
 		for i in range(correctPositionArrayofArray[0][0].size()):
 			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,speeds[2])"""
-	if wordNumber<5:
-		if wordNumber+correctPositionArrayofArray[0][0].size()>4:
-			$TextTimer.wait_time=1.45
+	if wordNumber<9:
+		if wordNumber+correctPositionArrayofArray[0][0].size()>8:
+			$TextTimer.wait_time=2.5
 		else:
-			$TextTimer.wait_time=1.2 
+			$TextTimer.wait_time=2.25
 		for i in range(correctPositionArrayofArray[0][0].size()):
-			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,Vector2(0,rand_range(120,143)))
-	elif wordNumber<8:
-		if wordNumber+correctPositionArrayofArray[0][0].size()>7:
-			$TextTimer.wait_time=1.62
+			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,Vector2(0,rand_range(90,100)))
+	elif wordNumber<18:
+		if wordNumber+correctPositionArrayofArray[0][0].size()>17:
+			$TextTimer.wait_time=2.6
 		else:
-			$TextTimer.wait_time==1.45
+			$TextTimer.wait_time=1.9
 		for i in range(correctPositionArrayofArray[0][0].size()):
-			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,Vector2(0,rand_range(130,160)))
-	elif wordNumber<20:
-		$TextTimer.wait_time=1.35
+			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,Vector2(0,rand_range(90,100)))
+	elif wordNumber<31:
+		if wordNumber+correctPositionArrayofArray[0][0].size()>27:
+			$TextTimer.wait_time=2.6
+		else:
+			$TextTimer.wait_time==1.8
 		for i in range(correctPositionArrayofArray[0][0].size()):
-			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,speeds[2])
-	elif wordNumber<30:
-		$TextTimer.wait_time=1.2
+			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,Vector2(0,rand_range(100,110)))
+	elif wordNumber<43:
+		if wordNumber+correctPositionArrayofArray[0][0].size()>43:
+			$TextTimer.wait_time=3.5
+		else:
+			$TextTimer.wait_time==1.6
 		for i in range(correctPositionArrayofArray[0][0].size()):
-			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,speeds[2])
-	elif wordNumber<46:
-		$TextTimer.wait_time=rand_range(.7,1.2)
-		for i in range(correctPositionArrayofArray[0][0].size()):
-			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,speeds[2])
-		currentSpeed=speeds[3]
-	elif wordNumber<52:
+			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,Vector2(0,rand_range(100,115)))
+	elif wordNumber<71:
 		$TextTimer.wait_time=rand_range(.65,1.25)
 		for i in range(correctPositionArrayofArray[0][0].size()):
-			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,speeds[3])
+			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,Vector2(0,rand_range(100,115)))
 		currentSpeed=speeds[3]
-	elif wordNumber<66:
+	elif wordNumber<100:
 		var speeding=speeds[randi()%speeds.size()]
 		while (1.2+375/speeding.y<440/currentSpeed.y):
 			speeding=speeds[randi()%speeds.size()]
@@ -308,7 +310,7 @@ func wordManager():
 		else:
 			$TextTimer.wait_time=1.3
 		currentSpeed=speeding
-	elif wordNumber<108:
+	elif wordNumber<145:
 		$TextTimer.wait_time=0.7
 		for i in range(correctPositionArrayofArray[0][0].size()):
 			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,Vector2(0,300))
@@ -317,19 +319,28 @@ func wordManager():
 		else:
 			$TextTimer.wait_time=1
 		currentSpeed=Vector2(0,300)
-	elif wordNumber<165:
+	elif wordNumber<350:
+		$TextTimer.wait_time=0.7
+		for i in range(correctPositionArrayofArray[0][0].size()):
+			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,Vector2(0,300))
+		if wordNumber+correctPositionArrayofArray[0][0].size()>107:
+			$TextTimer.wait_time=3
+		else:
+			$TextTimer.wait_time=1
+		currentSpeed=Vector2(0,300)
+	elif wordNumber<387:
 		var speeding=speeds[randi()%speeds.size()]
 		while (1+370/speeding.y<440/currentSpeed.y):
 			speeding=speeds[randi()%speeds.size()]
 		print(speeding.y,"speed")
 		for i in range(correctPositionArrayofArray[0][0].size()):
 			spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,speeding)
-		if wordNumber+correctPositionArrayofArray[0][0].size()>164:
+		if wordNumber+correctPositionArrayofArray[0][0].size()>386:
 			$TextTimer.wait_time=4
 		else:
 			$TextTimer.wait_time=1
 		currentSpeed=speeding
-	elif wordNumber<269:
+	elif wordNumber<400:
 		if $TextTimer.wait_time==4:
 			currentSpeed=hardspeeds[1]
 			for i in range(correctPositionArrayofArray[0][0].size()):
@@ -343,7 +354,7 @@ func wordManager():
 				spawn(dropPositions[correctPositionArrayofArray[0][0][i]],correctLetterArrayofArray[0][0][i],score,speeding)
 			currentSpeed=speeding
 		$TextTimer.wait_time=rand_range(.5,1.2)
-		if wordNumber+correctPositionArrayofArray[0][0].size()>268:
+		if wordNumber+correctPositionArrayofArray[0][0].size()>387:
 			$EndTimer.start()
 	else:
 		$TextTimer.wait_time=1.5
@@ -420,8 +431,8 @@ func wordSelectQueue(howMany,wordList):
 	return selectedWords
 	
 func createPercentageArray(wordNumber):
-	if wordNumber<8:
-		return [10,100]
+	if wordNumber<53:
+		return [100,100]
 	elif wordNumber<20:
 		return [70,100]
 	elif wordNumber<37:
@@ -531,7 +542,8 @@ func game_over():
 	$SpawnTimer.stop()
 	$TextTimer.stop()
 	$HUD.show_game_over(wordNumber)
-	admob.showInterstitial()
+	if admob:
+		admob.showInterstitial()
 	
 
 	
@@ -558,7 +570,7 @@ func resetVariables():
 	score=0
 	level=1
 	currentSpeed=speeds[0]
-	words=["a","b","c","d","e","A","B","D","ih","oy","pu","oy","on","no","bro","pls","lol","yay","wow","AB","time","DAX","is","F","up","mi","nekorb","Xpleh",'Yslp','h','e','l','p','fY','fX','fT','fG','fL','F','F','F','ABCDEF','GHIJKL','MNOPQR','STUVWXY',"dneirf","DA",'sknaht','rof','nipleh','tAC',"B","god","C","woc","D","d","e","AKX","g","DEF","i","evol","u","bb","oy","siht","si","eht","linaf","level","evah","nuf","dna","sknaht","rof","niyalp","eraA","Buoy","Lydear","A","GKXl","ZYtm","ZMyxle","LTkol","V","C","J","KMIPR","emag","Wdne","Qevah","Odug","Byad","A","A","A","A","A","A","A","A","A","A","A","A","A","A"]
+	words=["B","wovel","eno","C","a","b","c","d","e","A","B","C","wovel","owtR","ecinG","Eboj","f","F","g","GX","h","H","wovel","sert","I","prus","esir","V","moteg","P","Z","Y","Y","vowel","ruof","YK","KM","TJ","FO","SK","MG","RV","VR","R","R","V","V","vowel","evif","adR","gnah","fo","Pti","g","h","E","F","G","ih","oy","pu","oy","on","no","bro","pls","lol","yay","wow","AB","time","DAX","is","F","up","mi","nekorb","Xpleh",'Yslp','h','e','l','p','fY','fX','fT','fG','fL','F','F','F','ABCDEF','GHIJKL','MNOPQR','STUVWXY',"dneirf","DA",'sknaht','rof','nipleh','tAC',"B","god","C","woc","D","d","e","AKX","g","DEF","i","evol","u","bb","oy","siht","si","eht","linaf","level","evah","nuf","dna","sknaht","rof","niyalp","eraA","Buoy","Lydear","A","GKXl","ZYtm","ZMyxle","LTkol","V","C","J","KMIPR","emag","Wdne","Qevah","Odug","Byad","A","A","A","A","A","A","A","A","A","A","A","A","A","A"]
 	var whereat=0
 	var wutiswordnumba=[]
 	for i in words:
