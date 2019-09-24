@@ -40,11 +40,11 @@ __meta__ = {
 position = Vector2( 370.173, 289.71 )
 
 [node name="TutBubble" type="TextureRect" parent="Node2D"]
-margin_left = -312.213
+margin_left = -230.817
 margin_top = -85.1716
-margin_right = 287.787
+margin_right = 369.183
 margin_bottom = 214.828
-rect_scale = Vector2( 0.681012, 0.76 )
+rect_scale = Vector2( 0.51, 0.692 )
 texture = ExtResource( 2 )
 
 [node name="MessageLabel2" type="Label" parent="Node2D/TutBubble"]

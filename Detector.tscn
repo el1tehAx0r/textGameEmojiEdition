@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Detector.gd" type="Script" id=1]
 [ext_resource path="res://Assets/typeArea.png" type="Texture" id=2]
+[ext_resource path="res://Assets/lilsurround.png" type="Texture" id=3]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -18,9 +19,6 @@ extents = Vector2( 215.052, 57.8738 )
 position = Vector2( 216.889, 535.497 )
 gravity = 0.0
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 2.91131, -0.942833 )
@@ -33,5 +31,53 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -2.31721, -0.827759 )
 shape = SubResource( 2 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_left = -108.9
+margin_top = -133.844
+margin_right = 491.1
+margin_bottom = 171.156
+rect_scale = Vector2( 0.57, 0.97 )
+texture = ExtResource( 3 )
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+margin_left = -179.205
+margin_top = -133.844
+margin_right = 420.795
+margin_bottom = 171.156
+rect_scale = Vector2( 0.57, 0.97 )
+texture = ExtResource( 3 )
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+margin_left = -246.08
+margin_top = -133.844
+margin_right = 353.92
+margin_bottom = 171.156
+rect_scale = Vector2( 0.57, 0.97 )
+texture = ExtResource( 3 )
+
+[node name="TextureRect4" type="TextureRect" parent="."]
+margin_left = -315.528
+margin_top = -133.844
+margin_right = 284.472
+margin_bottom = 171.156
+rect_scale = Vector2( 0.57, 0.97 )
+texture = ExtResource( 3 )
+
+[node name="TextureRect5" type="TextureRect" parent="."]
+margin_left = -382.403
+margin_top = -133.844
+margin_right = 217.597
+margin_bottom = 171.156
+rect_scale = Vector2( 0.57, 0.97 )
+texture = ExtResource( 3 )
+
+[node name="TextureRect6" type="TextureRect" parent="."]
+margin_left = -452.708
+margin_top = -133.844
+margin_right = 147.292
+margin_bottom = 171.156
+rect_scale = Vector2( 0.57, 0.97 )
+texture = ExtResource( 3 )
 [connection signal="body_entered" from="." to="." method="_on_Detector_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_Detector_body_exited"]

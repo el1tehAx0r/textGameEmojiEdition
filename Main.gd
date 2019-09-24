@@ -58,9 +58,10 @@ func _ready():
 	print(highscore,"rar")
 	if Engine.has_singleton("AdMob"):
 		admob = Engine.get_singleton("AdMob")
-		admob.init(true, get_instance_id())
-		admob.loadBanner("ca-app-pub-8163785840954716/1983507262",true)
-		admob.loadInterstitial("ca-app-pub-8163785840954716/5016662425")
+		admob.init(false, get_instance_id())
+		admob.loadBanner("ca-app-pub-3940256099942544/6300978111",true)
+		admob.loadInterstitial("ca-app-pub-3940256099942544/1033173712")
+		#admob.loadInterstitial("ca-app-pub-8163785840954716/5016662425")
 		print("fuck")
 	if admob:
 		admob.showBanner()
@@ -531,7 +532,8 @@ func game_over():
 	$SpawnTimer.stop()
 	$TextTimer.stop()
 	$HUD.show_game_over(wordNumber)
-	admob.showInterstitial()
+	if admob:
+		admob.showInterstitial()
 	
 
 	
